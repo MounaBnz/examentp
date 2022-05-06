@@ -15,11 +15,20 @@ class SectionFixture extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        $faker = Factory::create();
+        //Remplir la table Etudiant
+        for ($i=0; $i < 50; $i++) {
+            $etudiant = new Etudiant();
+            $etudiant->setNom($faker->lastName);
+            $etudiant->setPrenom($faker->firstName);
+            $manager->persist($etudiant);
+        }
+        $manager->flush();
         // $product = new Product();
         // $manager->persist($product);
-        $faker = Factory::create();
         for ($i = 0; $i < 50; $i++) {
             $section = new Section();
+            //Un texte avec un nombre maximum de 30 chars
             $section->setDesignation($faker->text(30));
             //
             for ($j = 0; $j < random_int(1, 25); $j++) {
@@ -35,13 +44,7 @@ class SectionFixture extends Fixture
             }
             $manager->persist($section);
         }
-        for ($i=0; $i < 50; $i++) {
-            $etudiant = new Etudiant();
-            $etudiant->setNom($faker->lastName);
-            $etudiant->setPrenom($faker->firstName);
-            $manager->persist($etudiant);
-        }
-        $manager->flush();
+
     }
 
 }
