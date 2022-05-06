@@ -1,0 +1,18 @@
+{% extends 'template.html.twig' %}
+
+{#{% extends 'base.html.twig' %}#}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}})}} {#   pour désactiver les validations offertes par html5#}
+    <div class="row">
+        <div class="col">{{ form_row(form.nom) }}</div>
+        <div class="col">{{ form_row(form.prenom) }}</div>
+    </div>
+    {{ form_rest(form) }}
+{% endblock %}
+
+{% block title %}
+    Updater une personne
+{% endblock %}
+

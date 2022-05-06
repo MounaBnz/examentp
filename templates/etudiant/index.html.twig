@@ -1,0 +1,73 @@
+{% extends 'template.html.twig' %}
+
+
+{% block body %}
+    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+        <div class="dataTable-container">
+            <table id="datatablesSimple" class="dataTable-table">
+                <a href="{{path("etudiant.edit")}}">Ajouter une personne</a>
+                <thead>
+                <tr>
+                    <th data-sortable="" style="width: 19.5414%;">
+                        <a href="#" class="dataTable-sorter">Le Nom</a></th>
+                    <th data-sortable="" style="width: 29.013%;">
+                        <a href="#" class="dataTable-sorter">Le Prénom</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.7%;">
+                        <a href="#" class="dataTable-sorter">La Section</a>
+                    </th>
+                    <th data-sortable="">
+                        <a href="#" class="dataTable-sorter">Action</a>
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                        {#      Looper les étudiants#}
+                {% for etudiant in etudiants %}
+                    <tr class="{{ loop.index is even ? "bg-success" : "bg-danger" }}">
+                        <td>{{etudiant.nom}}</td>
+                        <td>{{etudiant.prenom}}</td>
+                        <td>{{etudiant.section == null ?  "Non affecté" : etudiant.section.designation}}</td>
+                        <td>
+                            <a href="{{path("etudiant.edit", {id: etudiant.id })}}">Editer</a>
+                            |
+                            <a href="{{path("etudiant.delete", {id: etudiant.id })}}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+                    {#        Pour la pagination    #}
+        <div class="dataTable-bottom">
+            <nav class="dataTable-pagination">
+                <ul class="dataTable-pagination-list">
+                    {% if page != 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('etudiant.list', {page: page - 1, nbre: nbre}) }}">
+                                Previous</a></li>
+                    {% endif %}
+                    {% for i in range(max(page - 5, 1), min(page + 5, nbrePage)) %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="{{ path('etudiant.list', {page: i, nbre: nbre}) }}">{{ i }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% if page != nbrePage %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('etudiant.list', {page: page + 1, nbre: nbre}) }}"
+                            >Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block title %}
+        Liste des Etudiants
+{% endblock %}
