@@ -73,7 +73,7 @@ class EtudiantController extends AbstractController
                 $message = " a été mis à jour avec succès !";
             }
             $this->addFlash('success',$etudiant->getNom(). $message );
-            // Rediriger vers la liste des etudiant
+            // Rediriger vers la liste des etudiants
             return $this->redirectToRoute('etudiant.list');
         }
 
@@ -87,14 +87,15 @@ class EtudiantController extends AbstractController
     //route pour deleter une personne
     #[Route('/delete/{id}', name: 'etudiant.delete')]
     public function deletePersonne(Etudiant $etudiant = null, ManagerRegistry $doctrine): RedirectResponse {
-        // Récupérer la etudiant
+        // Récupérer l'etudiant
         if ($etudiant) {
-            // Si la etudiant existe => le supprimer et retourner un flashMessage de success
+            // Si l'etudiant existe, on le supprimer et retourner un flashMessage de success
             $manager = $doctrine->getManager();
-            // Ajoute la fonction de suppression dans la transaction
+            // Ajoute dans la transaction
             $manager->remove($etudiant);
             // Exécuter la transacition
             $manager->flush();
+            //un msg de flashbag success
             $this->addFlash('success', "L'étudiant a été supprimé avec succès");
         } else {
             //Sinon  retourner un flashMessage d'erreur
