@@ -24,8 +24,10 @@ class SectionFixture extends Fixture
             //
             for ($j = 0; $j < random_int(1, 25); $j++) {
                 $etudiant = new Etudiant();
+//                Génerer les noms et prénoms des étudiants
                 $etudiant->setNom($faker->lastName);
                 $etudiant->setPrenom($faker->firstName);
+                //se profiter de la méthode addEtudiant et setSection dans les entités (resp) Section et Etudiant
                 $section->addEtudiant($etudiant);
                 $etudiant->setSection($section);
                 //persister l'étudiant
