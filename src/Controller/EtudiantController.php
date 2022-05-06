@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 //Route par défaut pour éviter la réecriture
 #[Route('/etudiant')]
+
 class EtudiantController extends AbstractController
 {
     #[Route('/etudiant', name: 'app_etudiant')]
